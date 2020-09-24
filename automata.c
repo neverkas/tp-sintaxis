@@ -3,7 +3,9 @@
 
 #include <stdio.h>
 #include "estructuras.h"
+#include "globales.h"
 #include "funciones.h"
+#include "automata.h"
 
 int TABLA_DE_TRANSICION[6][4] = {
   {1,5,5,5}, // ESTADO_0
@@ -13,11 +15,6 @@ int TABLA_DE_TRANSICION[6][4] = {
   {5,5,5,5}, // ESTADO_4
   {5,5,5,5}, // ESTADO_5
 };
-
-/* printf("TABLA:%d\n", TABLA_DE_TRANSICION[0][0]); */
-/* printf("CoolumnaCaracter: %d\n: ",columnaCaracter(0, '1')); */
-
-/* printf("---------------------------------\n"); */
 
 int char_to_int(char c){
   return c - '0';
@@ -41,8 +38,6 @@ boolean esElCaracter(char caracter, char caracterLeido){
 int transicion(char caracterLeido, int estadoOrigen){
   int estadoDestino;
   int estadoOk = false;
-
-  printf("caracterLeido:%c, estadoOrigen:%d\n", caracterLeido, estadoOrigen);
 
   for(int columna=0; columna <= TABLA_TRANSICION_COLUMNAS; columna++){
     // si la transición tiene un estado de rechazo,

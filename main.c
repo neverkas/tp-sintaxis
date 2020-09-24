@@ -1,16 +1,17 @@
-// gcc -g main.c funciones.c -o main && ./main
+// gcc -g main.c automata.c -o main && ./main
 #include <stdio.h>
 #include <string.h> // strcpy, strcmp
 #include <stdlib.h> // malloc
 #include <ctype.h> // isdigit
 
 #include "estructuras.h"
+#include "globales.h"
 #include "funciones.h"
+#include "automata.h"
 
 int main(){
   Automata automata;
   /* char* palabra = (char*) malloc(10*sizeof(char)); */
-
 
   int TABLA_DE_TRANSICION[6][4] = {
     {1,5,5,5}, // ESTADO_0
@@ -20,11 +21,6 @@ int main(){
     {5,5,5,5}, // ESTADO_4
     {5,5,5,5}, // ESTADO_5
   };
-
-  /* printf("TABLA:%d\n", TABLA_DE_TRANSICION[0][0]); */
-  /* printf("ColumnaCaracter: %d\n: ",columnaCaracter(1, '1')); */
-  /* printf("estaEntreLosNumeros: %d\n", estaEntreLosNumeros(0, 1, '1')); */
-  /* printf("---------------------------------\n"); */
 
   int estado_actual = ESTADO_INICIAL; // 0
   printf("estado_actual: %d\n", estado_actual);
