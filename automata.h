@@ -1,3 +1,8 @@
+#ifndef AUTOMATA_H
+#define AUTOMATA_H
+
+#include "tipos.h"
+
 typedef enum{
   INICIAL=0,FINAL=5,RECHAZO=6, ACEPTACION
 } Estado;
@@ -16,6 +21,10 @@ typedef struct{
   /* int tabla_transicion[6][4]; // matriz[][] */
 } Automata;
 
-boolean columnaCaracter(int columna_tabla_transicion, char caracterLeido);
+static boolean columnaCaracter(int columna_tabla_transicion, char caracterLeido);
 
-int transicion(char caracterLeido, int estadoOrigen);
+void imprimir_resultados();
+void reconocer_palabra();
+static int transicion(char caracterLeido, int estadoOrigen);
+
+#endif

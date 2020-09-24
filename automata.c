@@ -1,13 +1,14 @@
-#ifndef FUNCIONES
-#define FUNCIONES
+#ifndef AUTOMATA
+#define AUTOMATA
 
-#include <stdio.h>
-#include "estructuras.h"
 #include "globales.h"
+#include "tipos.h"
 #include "funciones.h"
 #include "automata.h"
 
-int TABLA_DE_TRANSICION[6][4] = {
+#include <stdio.h>
+
+extern int TABLA_DE_TRANSICION[6][4] = {
   {1,5,5,5}, // ESTADO_0
   {3,2,5,4}, // ESTADO_1
   {4,5,4,5}, // ESTADO_2
@@ -16,26 +17,29 @@ int TABLA_DE_TRANSICION[6][4] = {
   {5,5,5,5}, // ESTADO_5
 };
 
-int char_to_int(char c){
-  return c - '0';
-}
+void imprimir_resultados(){
+  printf("estado_actual: %d\n", estado_actual);
 
-boolean estaEntreLosNumeros(int minimo, int maximo, char caracter){
-  if(isdigit(caracter)){
-    int num = char_to_int(caracter);
-
-    return num >= minimo || num <= maximo;
+  if(estado_actual == 4 || estado_actual == 2){
+    printf("La palabra forma parte del lenguaje\n");
+  }else{
+    printf("La palabra NO pertenece al lenguaje\n");
   }
-
-  return false;
 }
 
-boolean esElCaracter(char caracter, char caracterLeido){
-  return caracter == caracterLeido;
+void reconocer_palabra(){
+  // agregar scanf
+  // y que si tiene una por defecto que no haga scanf (?)
+  char* palabra = "0.";
+
+  for(int i=0; palabra[i] != '\0'; i++){
+    estado_actual = transicion(palabra[i], estado_actual);
+    printf("estado_actual: %d, caracter:%c, \n", estado_actual, palabra[i]);
+  }
 }
 
 // retorna el siguiente estado
-int transicion(char caracterLeido, int estadoOrigen){
+static int transicion(char caracterLeido, int estadoOrigen){
   int estadoDestino;
   int estadoOk = false;
 
@@ -60,7 +64,7 @@ int transicion(char caracterLeido, int estadoOrigen){
     return ESTADO_RECHAZO;
 }
 
-boolean columnaCaracter(int columna_tabla_transicion, char caracterLeido){
+static boolean columnaCaracter(int columna_tabla_transicion, char caracterLeido){
   switch(columna_tabla_transicion){
   case 0: // Columna 1
     return estaEntreLosNumeros(0, 1, caracterLeido);
