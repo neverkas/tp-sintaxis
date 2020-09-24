@@ -7,6 +7,10 @@
 #include "automata.h"
 
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+extern int estados_finales[2] = {2,4};
 
 extern int TABLA_DE_TRANSICION[6][4] = {
   {1,5,5,5}, // ESTADO_0
@@ -17,24 +21,60 @@ extern int TABLA_DE_TRANSICION[6][4] = {
   {5,5,5,5}, // ESTADO_5
 };
 
-void imprimir_resultados(){
-  printf("estado_actual: %d\n", estado_actual);
+/* strcpy(palabra, "0."); */
 
-  if(estado_actual == 4 || estado_actual == 2){
+static void imprimir_resultados(){
+  /* printf("Estado Actual: %d\n", estado_actual); */
+  /* printf("Palabra Analizada:", palabra); */
+
+  if(es_estado_final(estado_actual))
     printf("La palabra forma parte del lenguaje\n");
-  }else{
+  else
     printf("La palabra NO pertenece al lenguaje\n");
+}
+
+void iniciar_automata(){
+  char palabra_ingresada;
+
+  // en vez del while(1) podria utilizar un centinela
+  while(1){
+    printf("Desea ingresar otra palabra? (s/n)\n");
+
+    scanf("%c", &palabra_ingresada);
+    fflush(stdin);
+
+    if(palabra_ingresada == 's' || palabra_ingresada == 'S'){
+      reconocer_palabra();
+      imprimir_resultados();
+    }
+    else if(palabra_ingresada =='n' || palabra_ingresada == 'N'){
+      break;
+    }
+
   }
 }
 
-void reconocer_palabra(){
-  // agregar scanf
-  // y que si tiene una por defecto que no haga scanf (?)
-  char* palabra = "0.";
+static boolean es_estado_final(int estado){
+  boolean es_final = false;
+
+  for(int i=0; i < CANTIDAD_ESTADOS_FINALES;i++){
+    if (estados_finales[i] != estado) continue;
+    es_final = true;
+  }
+
+  return es_final;
+}
+
+static void reconocer_palabra(){
+  char palabra[30];
+
+  printf("Ingrese una palabra a analizar: ");
+  scanf("%s", &palabra);
+  fflush(stdin);
 
   for(int i=0; palabra[i] != '\0'; i++){
     estado_actual = transicion(palabra[i], estado_actual);
-    printf("estado_actual: %d, caracter:%c, \n", estado_actual, palabra[i]);
+    /* printf("estado_actual: %d, caracter:%c, \n", estado_actual, palabra[i]); */
   }
 }
 

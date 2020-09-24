@@ -4,7 +4,7 @@
 #include "tipos.h"
 
 typedef enum{
-  INICIAL=0,FINAL=5,RECHAZO=6, ACEPTACION
+  INICIAL=0,RECHAZO=6
 } Estado;
 
 typedef struct{
@@ -23,8 +23,10 @@ typedef struct{
 
 static boolean columnaCaracter(int columna_tabla_transicion, char caracterLeido);
 
-void imprimir_resultados();
-void reconocer_palabra();
+void iniciar_automata();
+static void imprimir_resultados();
+static void reconocer_palabra();
+static boolean es_estado_final(int estado);
 static int transicion(char caracterLeido, int estadoOrigen);
 
 #endif

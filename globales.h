@@ -7,9 +7,9 @@
 
 #define ESTADO_INICIAL 0
 
-#define ESTADO_FINAL 4
-
 #define ESTADO_RECHAZO 5
+
+#define CANTIDAD_ESTADOS_FINALES 2
 
 extern int estado_actual = ESTADO_INICIAL;
 

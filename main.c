@@ -1,4 +1,3 @@
-// gcc -g main.c funciones.c automata.c -o ./bin/automata && ./bin/automata
 #include "automata.h"
 
 #include <stdio.h>
@@ -9,8 +8,9 @@
 int main(){
   /* char* palabra = (char*) malloc(10*sizeof(char)); */
 
-  reconocer_palabra();
-  imprimir_resultados();
+  iniciar_automata();
+  /* reconocer_palabra(); */
+  /* imprimir_resultados(); */
 
   return 0;
 }
