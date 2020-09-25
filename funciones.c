@@ -22,7 +22,8 @@ boolean estaEntreLosNumeros(int minimo, int maximo, char caracter){
 }
 
 boolean esElCaracter(char caracter, char caracterLeido){
-  return caracter == caracterLeido;
+  if(isprint(caracter))
+    return caracter == caracterLeido;
 }
 
 #endif

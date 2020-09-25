@@ -14,9 +14,8 @@
 int estado_actual = ESTADO_INICIAL;
 char palabra[MAX_LONGITUD_PALABRA] = "";
 
-int estados_finales[2] = {2,4};
-
-int TABLA_DE_TRANSICION[6][4] = {
+const int estados_finales[2] = {2,4};
+const int TABLA_DE_TRANSICION[6][4] = {
   {1,5,5,5}, // ESTADO_0
   {3,2,5,4}, // ESTADO_1
   {4,5,4,5}, // ESTADO_2
