@@ -11,6 +11,6 @@
 
 #define CANTIDAD_ESTADOS_FINALES 2
 
-extern int estado_actual = ESTADO_INICIAL;
+#define MAX_LONGITUD_PALABRA 30
 
 #endif

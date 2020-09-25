@@ -5,6 +5,7 @@
 #include "funciones.h"
 
 #include <stdio.h>
+#include <ctype.h> // isdigit
 
 int char_to_int(char c){
   return c - '0';

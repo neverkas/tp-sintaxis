@@ -7,12 +7,16 @@
 #include "automata.h"
 
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include <string.h> // strcpy, strcmp
+#include <stdlib.h> // malloc
 
-extern int estados_finales[2] = {2,4};
+int pepe = 2;
+int estado_actual = ESTADO_INICIAL;
+char palabra[MAX_LONGITUD_PALABRA] = "";
 
-extern int TABLA_DE_TRANSICION[6][4] = {
+int estados_finales[2] = {2,4};
+
+int TABLA_DE_TRANSICION[6][4] = {
   {1,5,5,5}, // ESTADO_0
   {3,2,5,4}, // ESTADO_1
   {4,5,4,5}, // ESTADO_2
@@ -21,22 +25,19 @@ extern int TABLA_DE_TRANSICION[6][4] = {
   {5,5,5,5}, // ESTADO_5
 };
 
-/* strcpy(palabra, "0."); */
-
 static void imprimir_resultados(){
-  /* printf("Estado Actual: %d\n", estado_actual); */
-  /* printf("Palabra Analizada:", palabra); */
-
-  if(es_estado_final(estado_actual))
-    printf("La palabra forma parte del lenguaje\n");
-  else
-    printf("La palabra NO pertenece al lenguaje\n");
+  printf("Palabra Analizada: %s \n", palabra);
+  printf("Longitud de la Palabra: %d\n", strlen(palabra));
+  printf("La palabra forma parte del lenguaje: %s\n",
+         es_estado_final(estado_actual) ? "SI" : "NO");
 }
 
 void iniciar_automata(){
   char palabra_ingresada;
+  reconocer_palabra();
+  imprimir_resultados();
 
-  // en vez del while(1) podria utilizar un centinela
+  // alternativa: en vez del while(1) podria utilizar un centinela
   while(1){
     printf("Desea ingresar otra palabra? (s/n)\n");
 
@@ -44,13 +45,16 @@ void iniciar_automata(){
     fflush(stdin);
 
     if(palabra_ingresada == 's' || palabra_ingresada == 'S'){
+      printf("\n----------------------------------------------------\n\n");
+
+      estado_actual = ESTADO_INICIAL;
+
       reconocer_palabra();
       imprimir_resultados();
     }
     else if(palabra_ingresada =='n' || palabra_ingresada == 'N'){
       break;
     }
-
   }
 }
 
@@ -66,16 +70,19 @@ static boolean es_estado_final(int estado){
 }
 
 static void reconocer_palabra(){
-  char palabra[30];
-
+  int numero_de_paso = 1;
   printf("Ingrese una palabra a analizar: ");
   scanf("%s", &palabra);
   fflush(stdin);
 
-  for(int i=0; palabra[i] != '\0'; i++){
+  printf("\n");
+  printf("Analisis:\n");
+  printf("%d. Estado actual: %d, \n", numero_de_paso, estado_actual);
+  for(int i=0, numero_de_paso=2; palabra[i] != '\0'; i++, numero_de_paso++){
     estado_actual = transicion(palabra[i], estado_actual);
-    /* printf("estado_actual: %d, caracter:%c, \n", estado_actual, palabra[i]); */
+    printf("%d. Estado actual: %d, Caracter analizado:%c, \n", numero_de_paso, estado_actual, palabra[i]);
   }
+  printf("\n");
 }
 
 // retorna el siguiente estado
