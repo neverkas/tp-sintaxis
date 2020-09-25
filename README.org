@@ -1,10 +1,12 @@
 #+TITLE: TP Integrador
 #+AUTHOR: Emmanuel
 
+* Ejecutar el Autómata
+  - Utilizamos el archivo *compilar.sh* que creará un ejecutable en el directorio *bin*
 * (ER) Expresion Regular que representa al (AFD)
-  La (ER) es [01]\.[0-9]? | [01]+B
+  - La (ER) es [01]\.[0-9]? | [01]+B
 * Palabras que pertenecen al Lenguaje
-    0B, 1B, 0punto, 1punto, 0punto0, 1punto1
+  - 0B, 1B, 0punto, 1punto, 0punto0, 1punto1
 * Observaciones
   - En la (TT) Tabla de transición reemplazamos algunas de las columnas de los caracteres por (ER)
 
