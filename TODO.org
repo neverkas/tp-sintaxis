@@ -1,1 +1,2 @@
-
+* Revisar el struct de transiciones para que sea dinámico
+* 

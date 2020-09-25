@@ -1,14 +1,43 @@
 #+TITLE: TP Integrador
 #+AUTHOR: Emmanuel
 
-* Ejecutar el Autómata
-  - Utilizamos el archivo *compilar.sh* que creará un ejecutable en el directorio *bin*
-* (ER) Expresion Regular que representa al (AFD)
-  - La (ER) es [01]\.[0-9]? | [01]+B
-* Palabras que pertenecen al Lenguaje
-  - 0B, 1B, 0punto, 1punto, 0punto0, 1punto1
-* Observaciones
+* Observaciones del Programa
+** Ejecución del Autómata
+   - Utilizamos el archivo *compilar.sh* que creará un ejecutable en el directorio *bin*
+** Configuración
+  + Estructuramos el programa de manera que tengamos separado las declaraciones de las definiciones.
+  + Colocamos en los archivos de cabecera .h las declaraciones de las funciones, definiciones de las estructuras y variables globales
+  + Las definiciones de las funciones las agregamos en los ficheros .c
+** Las bibliotecas estandar de C
+   + *stdio.h*
+     - Para imprimir por pantalla texto con formato
+     - Permitir el ingreso datos al programa
+   + *string.h*
+     - Conocer la longitud de las cadenas de caracteres y poder iterar sobre ellas
+     - Copiar cadenas de una variable tipo string (cadena de caracteres) a otra del tipo string también
+   + ctype.h
+     - Para determinar si un caracter es un digito, y poder utilizarlo con rangos de números
+   + *stdlib.h*
+     - Poder reservar y liberar memoria
+     - Crear vectores y estructuras dinámicas, es decir poder declarar y luego asignar cuanto espacio ocuparán.
+* Observaciones Generales
+** (TT) Tabla de Transición
   - En la (TT) Tabla de transición reemplazamos algunas de las columnas de los caracteres por (ER)
+  - Se agrega un estado de rechazo para aquellas palabras que no pertenece al lenguaje
+** (ER) Expresion Regular que representa al (AFD)
+   La (ER) es [01]\.[0-9]? | [01]+B
+** Lenguaje Natural
+   Una posible interpretación del lenguaje se podría dividir en dos partes:
+   1. Las palabras que comiencen con cero o no, seguidas de un punto,
+   y que pueden terminar o no con un número de entre 0 y 9.
+   2. Las palabras que terminen en B y que comiencen con cualquier palabra
+      que se pueda formar con los números 0 ó 1 pero que sea al menos un digito
+      es decir debe iniciar con al menos uno de ellos.
+** Palabras que pertenecen al Lenguaje
+   - Las palabras de menor longitud serían 0B, 1B, 0Punto, 1punto 
+   - Otras posibles palabras podrían ser 0punto0, 1punto1, 000B, 111B, 0101B, 1010B, ...
+
+* Imagenes
 
 [[imagenes/DT-AFD.png]]
 
