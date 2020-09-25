@@ -13,4 +13,6 @@
 
 #define MAX_LONGITUD_PALABRA 30
 
+#define ALFABETO "0123456789.B"
+
 #endif

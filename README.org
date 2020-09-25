@@ -15,7 +15,7 @@
    + *string.h*
      - Conocer la longitud de las cadenas de caracteres y poder iterar sobre ellas
      - Copiar cadenas de una variable tipo string (cadena de caracteres) a otra del tipo string también
-   + ctype.h
+   + *ctype.h*
      - Para determinar si un caracter es un digito, y poder utilizarlo con rangos de números
    + *stdlib.h*
      - Poder reservar y liberar memoria
@@ -28,11 +28,8 @@
    La (ER) es [01]\.[0-9]? | [01]+B
 ** Lenguaje Natural
    Una posible interpretación del lenguaje se podría dividir en dos partes:
-   1. Las palabras que comiencen con cero o no, seguidas de un punto,
-   y que pueden terminar o no con un número de entre 0 y 9.
-   2. Las palabras que terminen en B y que comiencen con cualquier palabra
-      que se pueda formar con los números 0 ó 1 pero que sea al menos un digito
-      es decir debe iniciar con al menos uno de ellos.
+   1. Las palabras que comiencen con cero o no, seguidas de un punto, y que pueden terminar o no con un número de entre 0 y 9.
+   2. Las palabras que terminen en B y que comiencen con cualquier palabra que se pueda formar con los números 0 ó 1 pero que sea al menos un digito es decir debe iniciar con al menos uno de ellos.
 ** Palabras que pertenecen al Lenguaje
    - Las palabras de menor longitud serían 0B, 1B, 0Punto, 1punto 
    - Otras posibles palabras podrían ser 0punto0, 1punto1, 000B, 111B, 0101B, 1010B, ...

@@ -30,6 +30,10 @@ static void reconocer_palabra();
 static boolean es_estado_final(int estado);
 static int transicion(char caracterLeido, int estadoOrigen);
 
+static void mensaje();
+static void imprimir_tabla_transicion();
+static void imprimir_derivacion(char palabra[]);
+
 extern char palabra[MAX_LONGITUD_PALABRA];
 extern int estado_actual;
 

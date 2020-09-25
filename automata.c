@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h> // strcpy, strcmp
 #include <stdlib.h> // malloc
+#include <ctype.h> // malloc
 
 int estado_actual = ESTADO_INICIAL;
 char palabra[MAX_LONGITUD_PALABRA] = "";
@@ -26,13 +27,64 @@ int TABLA_DE_TRANSICION[6][4] = {
 
 static void imprimir_resultados(){
   printf("Palabra Analizada: %s \n", palabra);
+  imprimir_derivacion(palabra);
   printf("Longitud de la Palabra: %d\n", strlen(palabra));
   printf("La palabra forma parte del lenguaje: %s\n",
          es_estado_final(estado_actual) ? "SI" : "NO");
 }
 
+static void imprimir_derivacion(char palabra[]){
+  char caracter = palabra[0];
+  int posicionUltimoCaracter = strlen(palabra)-1;
+
+  printf("Derivación:\n");
+  for(int posicion=0; caracter != '\0'; posicion++){
+    // alternativa usando strlen()
+    /* for(int posicion=0; posicion < strlen(palabra) ; posicion++){ */
+    caracter=palabra[posicion];
+
+    if(isprint(caracter)){
+      printf("%c", caracter);
+
+      if(posicion < posicionUltimoCaracter)
+        printf(" => ");
+    }
+  }
+  printf("\n");
+}
+
+static void mensaje(){
+  printf("Observaciones generales:\n");
+  printf("1. La (ER) Expresión Regular precargada es: [01]\\.[0-9]? | [01]+B\n");
+  printf("2. El alfabeto es: {%s}\n", ALFABETO);
+  printf("3. La Tabla de transición a utilizar será la siguiente\n");
+  imprimir_tabla_transicion();
+}
+
+/* int estados_finales[2] = {2,4}; */
+static void imprimir_tabla_transicion(){
+  char tipo_de_estado;
+
+  for(int i=0; i < CANTIDAD_ESTADOS; i++){
+    for(int j=0; j < TABLA_TRANSICION_COLUMNAS; j++){
+      if(j==0){
+        if(i == 0) tipo_de_estado = '-';
+        else if(es_estado_final(i)) tipo_de_estado = '+';
+        else tipo_de_estado =' ';
+
+        printf("%cq%d | ", tipo_de_estado,i);
+      }
+      printf("%d ", TABLA_DE_TRANSICION[i][j]);
+    }
+    printf("\n");
+  }
+  printf("\n");
+}
+
 void iniciar_automata(){
   char palabra_ingresada;
+
+  mensaje();
   reconocer_palabra();
   imprimir_resultados();
 
