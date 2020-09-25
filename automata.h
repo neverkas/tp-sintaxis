@@ -11,7 +11,7 @@ typedef enum{
 typedef struct{
   int estado_origen;
   int estado_destino;
-  char caracter_leido;
+  char caracter;
 } Transicion;
 
 typedef struct{
@@ -35,7 +35,12 @@ static void imprimir_tabla_transicion();
 static void imprimir_derivacion(char palabra[]);
 
 extern char palabra[MAX_LONGITUD_PALABRA];
+extern int longitud_palabra;
 extern int estado_actual;
+
+static void agregarTransicion(int Numero, Transicion t, Transicion* transiciones);
+static void imprimirTransicion(Transicion t);
+static Transicion crearTransicion(int origen, int destino, char caracter);
 
 extern Transicion *transiciones;
 

@@ -13,6 +13,9 @@
 
 int estado_actual = ESTADO_INICIAL;
 char palabra[MAX_LONGITUD_PALABRA] = "";
+int longitud_palabra = 0;
+
+Transicion *transiciones;
 
 const int estados_finales[2] = {2,4};
 const int TABLA_DE_TRANSICION[6][4] = {
@@ -27,7 +30,7 @@ const int TABLA_DE_TRANSICION[6][4] = {
 static void imprimir_resultados(){
   printf("Palabra Analizada: %s \n", palabra);
   imprimir_derivacion(palabra);
-  printf("Longitud de la Palabra: %d\n", strlen(palabra));
+  printf("Longitud de la Palabra: %d\n", longitud_palabra);
   printf("La palabra forma parte del lenguaje: %s\n",
          es_estado_final(estado_actual) ? "SI" : "NO");
 }
@@ -37,6 +40,7 @@ static void imprimir_derivacion(char palabra[]){
   int posicionUltimoCaracter = strlen(palabra)-1;
 
   printf("Derivación:\n");
+
   for(int posicion=0; caracter != '\0'; posicion++){
     // alternativa usando strlen()
     /* for(int posicion=0; posicion < strlen(palabra) ; posicion++){ */
@@ -44,11 +48,18 @@ static void imprimir_derivacion(char palabra[]){
 
     if(isprint(caracter)){
       printf("%c", caracter);
+      /* printf("(%c, q%d)", caracter, estado_actual); */
 
       if(posicion < posicionUltimoCaracter)
         printf(" => ");
     }
   }
+  printf("\n");
+
+  for(int i=0; i < longitud_palabra; i++){
+    imprimirTransicion(transiciones[i]);
+  }
+
   printf("\n");
 }
 
@@ -121,19 +132,49 @@ static boolean es_estado_final(int estado){
 
 static void reconocer_palabra(){
   int numero_de_paso = 1;
+  int estado_anterior = 0;
+  char caracter_leido;
 
   printf("Ingrese una palabra a analizar: ");
   scanf("%s", &palabra);
   fflush(stdin);
 
+  longitud_palabra = strlen(palabra);
+  transiciones = (Transicion*) malloc(longitud_palabra * sizeof(Transicion));
+
   printf("\n");
   printf("Analisis:\n");
   printf("%d. Estado actual: %d, \n", numero_de_paso, estado_actual);
   for(int i=0, numero_de_paso=2; palabra[i] != '\0'; i++, numero_de_paso++){
+  /* for(int i=0, numero_de_paso=2; caracter_leido != '\0'; i++, numero_de_paso++){ */
+    caracter_leido = palabra[i];
+    estado_anterior = estado_actual;
     estado_actual = transicion(palabra[i], estado_actual);
-    printf("%d. Estado actual: %d, Caracter analizado:%c, \n", numero_de_paso, estado_actual, palabra[i]);
+
+    Transicion t = crearTransicion(estado_anterior, estado_actual, caracter_leido);
+    agregarTransicion(numero_de_paso, t, transiciones);
+
+    printf("%d. Estado actual: %d, Estado anterior: %d, Caracter analizado:%c, \n",
+           numero_de_paso, estado_actual, estado_anterior, caracter_leido);
   }
   printf("\n");
+}
+
+static void agregarTransicion(int Numero, Transicion t, Transicion* transiciones){
+  transiciones[Numero] = t;
+}
+
+static void imprimirTransicion(Transicion t){
+  printf("(%c ,%d)", t.caracter, t.estado_destino);
+}
+
+static Transicion crearTransicion(int origen, int destino, char caracter){
+  Transicion t;
+  t.estado_origen = origen;
+  t.estado_destino = destino;
+  t.caracter = caracter;
+
+  return t;
 }
 
 // retorna el siguiente estado
