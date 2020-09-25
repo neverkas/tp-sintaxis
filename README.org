@@ -1,0 +1,17 @@
+#+TITLE: TP Integrador
+#+AUTHOR: Emmanuel
+
+* (ER) Expresion Regular que representa al (AFD)
+  La (ER) es [01]\.[0-9]? | [01]+B
+* Palabras que pertenecen al Lenguaje
+    0B, 1B, 0punto, 1punto, 0punto0, 1punto1
+* Observaciones
+  - En la (TT) Tabla de transición reemplazamos algunas de las columnas de los caracteres por (ER)
+
+[[imagenes/DT-AFD.png]]
+
+[[imagenes/TT-AFD.png]]
+ 
+[[imagenes/DT-AFD-COMPLETO.png]]
+
+[[imagenes/TT-AFD-COMPLETO.png]]

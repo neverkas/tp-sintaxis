@@ -1,7 +1,7 @@
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
 
-#include "tipos.h"
+/* #include "tipos.h" */
 
 boolean estaEntreLosNumeros(int minimo, int maximo, char caracter);
 boolean esElCaracter(char caracter, char caracterLeido);

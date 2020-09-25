@@ -1,8 +1,8 @@
 #ifndef AUTOMATA_H
 #define AUTOMATA_H
 
-#include "tipos.h"
-#include "globales.h"
+/* #include "tipos.h" */
+/* #include "globales.h" */
 
 typedef enum{
   INICIAL=0,RECHAZO=6
@@ -30,12 +30,9 @@ static void reconocer_palabra();
 static boolean es_estado_final(int estado);
 static int transicion(char caracterLeido, int estadoOrigen);
 
-extern int pepe;
-/* extern char palabra[MAX_LONGITUD_PALABRA]; */
-/* extern int estado_actual; */
-/* int estado_actual = ESTADO_INICIAL; */
-
 extern char palabra[MAX_LONGITUD_PALABRA];
 extern int estado_actual;
+
+extern Transicion *transiciones;
 
 #endif

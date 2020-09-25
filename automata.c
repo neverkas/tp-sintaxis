@@ -10,7 +10,6 @@
 #include <string.h> // strcpy, strcmp
 #include <stdlib.h> // malloc
 
-int pepe = 2;
 int estado_actual = ESTADO_INICIAL;
 char palabra[MAX_LONGITUD_PALABRA] = "";
 
@@ -71,6 +70,7 @@ static boolean es_estado_final(int estado){
 
 static void reconocer_palabra(){
   int numero_de_paso = 1;
+
   printf("Ingrese una palabra a analizar: ");
   scanf("%s", &palabra);
   fflush(stdin);

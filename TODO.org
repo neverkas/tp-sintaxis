@@ -1,16 +1,1 @@
-* Agregar extern
-** Referencias
-   + https://cs50.stackexchange.com/questions/1111/how-do-i-share-a-variable-between-source-files-in-c-with-extern
-   + https://edisciplinas.usp.br/pluginfile.php/5453726/mod_resource/content/0/Extern%20Global%20Variable.pdf
-   + http://razonartificial.com/2013/01/organizacion-del-codigo-fuente-en-cpp/
-* Crear archivo cabecera para las variables globales
-  - Podrias crear un var.h o global.h (averiguar mejor)
-* Probar si podes crear la matriz dinámica
-* Agregar static/extern/unsigned
-* Que funcionen los structs (al menos uno)
-* Organizar codigo fuente
-  - https://users.cs.cf.ac.uk/Dave.Marshall/C/node35.html
-  - https://www.geeksforgeeks.org/dividing-a-large-file-into-separate-modules-in-c-c-java-and-python/
-  - http://www.cplusplus.com/articles/Gw6AC542/
-* agregar fget
 

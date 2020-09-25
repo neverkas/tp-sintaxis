@@ -1,3 +1,7 @@
+#include "globales.h"
+#include "tipos.h"
+#include "funciones.h"
+
 #include "automata.h"
 
 #include <stdio.h>
