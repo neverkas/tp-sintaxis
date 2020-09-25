@@ -5,22 +5,14 @@
 /* #include "globales.h" */
 
 typedef enum{
-  INICIAL=0,RECHAZO=6
-} Estado;
+  INICIAL,FINAL,RECHAZO,OTRO
+} TipoDeEstado;
 
 typedef struct{
   int estado_origen;
   int estado_destino;
   char caracter;
 } Transicion;
-
-typedef struct{
-  Estado estado;
-  char caracter_leido;
-  int cantidad_estados;
-  char *alfabeto;
-  /* int tabla_transicion[6][4]; // matriz[][] */
-} Automata;
 
 static boolean columnaCaracter(int columna_tabla_transicion, char caracterLeido);
 
