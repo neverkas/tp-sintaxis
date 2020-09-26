@@ -39,7 +39,7 @@ static void imprimir_derivacion(char palabra[]){
   char caracter = palabra[0];
   int posicionUltimoCaracter = strlen(palabra)-1;
 
-  printf("Derivación en formato {((estado_origen, caracter), estado_destino),...}\n");
+  printf("Transiciones en formato {((estado_origen, caracter), estado_destino),...}\n");
 
   printf("{ ");
   for(int i=0; i < longitud_palabra; i++){
