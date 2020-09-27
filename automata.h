@@ -34,6 +34,10 @@ static void agregarTransicion(int Numero, Transicion t, Transicion* transiciones
 static void imprimirTransicion(Transicion t);
 static Transicion crearTransicion(int origen, int destino, char caracter);
 
+void evaluar_cadena(char *cadena);
+void solicitar_evaluar_cadena(char *cadena);
+void confirmar_evaluar_cadena();
+
 extern Transicion *transiciones;
 
 #endif
