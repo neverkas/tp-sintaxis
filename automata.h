@@ -17,14 +17,13 @@ typedef struct{
 static boolean columnaCaracter(int columna_tabla_transicion, char caracterLeido);
 
 void iniciar_automata();
-static void imprimir_resultados();
 static void reconocer_palabra();
 static boolean es_estado_final(int estado);
 static int transicion(char caracterLeido, int estadoOrigen);
 
 static void mensaje();
 static void imprimir_tabla_transicion();
-static void imprimir_derivacion(char palabra[]);
+static void imprimir_traza_transiciones(char palabra[]);
 
 extern char palabra[MAX_LONGITUD_PALABRA];
 extern int longitud_palabra;
