@@ -32,7 +32,7 @@
 
 /*****************************************************************************/
 /*
- * GLOBALES
+ * MACROS && VARIABLES GLOBALES
  */
 
 #define TABLA_TRANSICION_COLUMNAS 4
@@ -45,6 +45,21 @@
 #define ALFABETO "0123456789.B"
 #define EXPRESION_REGULAR "[01].[0-9]? | [01]+B"
 
+Transicion *transiciones;
+
+char palabra[MAX_LONGITUD_PALABRA] = "";
+int longitud_palabra = 0;
+int estado_actual = ESTADO_INICIAL;
+
+const int estados_finales[2] = {2,4};
+const int TABLA_DE_TRANSICION[6][4] = {
+  {1,5,5,5}, // ESTADO_0 (ESTADO INICIAL)
+  {3,2,5,4}, // ESTADO_1
+  {4,5,4,5}, // ESTADO_2 (ESTADO DE ACEPTACIÓN/FINAL)
+  {3,5,5,4}, // ESTADO_3
+  {5,5,5,5}, // ESTADO_4 (ESTADO DE ACEPTACIÓN/FINAL)
+  {5,5,5,5}, // ESTADO_5 (ESTADO DE RECHAZO)
+};
 /*****************************************************************************/
 /*
  * PROTOTIPOS
@@ -93,21 +108,6 @@ void evaluar_cadena(char *cadena);
 void solicitar_evaluar_cadena(char *cadena);
 void confirmar_evaluar_cadena();
 
-Transicion *transiciones;
-
-char palabra[MAX_LONGITUD_PALABRA] = "";
-int longitud_palabra = 0;
-int estado_actual = ESTADO_INICIAL;
-
-const int estados_finales[2] = {2,4};
-const int TABLA_DE_TRANSICION[6][4] = {
-  {1,5,5,5}, // ESTADO_0 (ESTADO INICIAL)
-  {3,2,5,4}, // ESTADO_1
-  {4,5,4,5}, // ESTADO_2 (ESTADO DE ACEPTACIÓN/FINAL)
-  {3,5,5,4}, // ESTADO_3
-  {5,5,5,5}, // ESTADO_4 (ESTADO DE ACEPTACIÓN/FINAL)
-  {5,5,5,5}, // ESTADO_5 (ESTADO DE RECHAZO)
-};
 
 /*****************************************************************************/
 /*
