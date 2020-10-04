@@ -1,6 +1,6 @@
 /**
  *
- * Justificación del uso de las bibliotecas de C
+ * # Justificación del uso de las bibliotecas de C
  *
  * stdio.h
  * - Para imprimir por pantalla texto con formato
@@ -19,6 +19,60 @@
  *
  */
 
+/**
+ *
+ * # Descripción del Autómata
+ *
+ * 1.El autómata comienza con el llamado a iniciar_automata()
+ * 2 Imprimirá un mensaje con la información más relevante con mensaje()
+ * 3 Solicitará una cadena a evaluar mediante confirmar_evaluar_cadena()
+ * - Si es el primer ingreso, no pedirá confirmación e irá directo a solicitar_evaluar_cadena()
+ * - Luego de evaluar una cadena, pedirá una confirmación si desea ingresar otra cadena
+ * 4. Se revisará que el primer caracter de la cadena no contenga la palabra vacía en solicitar_evaluar_cadena()
+ * 5. Entonces se procede a evaluar la cadena desde evaluar_cadena()
+ *  5.1 Analizamos la cadena caracter por caracter y separamos las palabras según el centinela precargado,
+ * y empezamos a evaluarlas una por una con reconocer_palabra()
+ * 6. Se comienza con el estado actual igual al estado inicial
+ * 7. Se determina si el autómata reconoce o no la palabra en base al estado actual,
+ * lo determinamos en transicion() quien se basa en la tabla de transiciones cargada
+ *
+ */
+
+ /**
+ *
+ * # Breve descripción, sin entrar en tanto detalle de las funciones
+ *
+ * 1. Analizamos que el primer caracter de la cadena, para verificar que no es una palabra vacía
+ * 2. Determinamos que el estado actual sea el estado inicial
+ * 3. Mientras no sea fin de cadena, y el estado actual no sea un estado final
+ * 3.1 Analizamos cual será el siguiente estado actual (estado de llegada)
+ * 3.2 Analizamos cual será el próximo caracter
+ * 4. Si el estado actual es un estado final, entonces la palabra pertenece al lenguaje
+ * caso contrario la palabra no pertenece al lenguaje e irá al estado de rechazo
+ *
+ */
+
+/**
+ *
+ * # Descripción del programa
+ *
+ * - Se agregó detalles para determinar cual es un estado final, y cual inicial
+ * tanto en la tabla de transición como en la traza de transiciones
+ * - Se trató de utilizar estructuras tipo struct para guardar distinto tipo de información
+ * - Se utilizó enum para simular el tipo booleano y que el código quede más entendible
+ * - Se implementó el uso de punteros, y de la función malloc() para reservar espacio en memoria
+ * y crear vectores dinámicos y estructuras dinámicas
+ * - Se desarrollaron mayor cantidad de funciones a modo de delegar en otras funciones
+ * y evitar que funciones complejas de impidan su mantenimiento, además de evitar repetición de código.
+ * - Se agregó la palabra reservada const, a aquellas variables inmutables que no tendrían
+ * un cambio de estado.
+ * - Se utilizaron las macros define para aquellos datos que no cambiarían su valor,
+ * sabiendo que el preprocesador luego las reemplazaría previo a pasarselo al compilador
+ * - Se agregaron variables globales fuera del main() que reutilizariamos a lo largo del programa
+ * - Separamos las declaraciones, de las definiciones para tener un código mas entendible
+ * - Desarrollamos algunas funciones auxiliares para utilizar conceptos importantes de
+ * bibliotecas como el ctype.h
+ */
 
 /*****************************************************************************/
 /*
@@ -30,36 +84,6 @@
 #include <stdlib.h> // malloc
 #include <ctype.h> // isdigit(), isprint()
 
-/*****************************************************************************/
-/*
- * MACROS && VARIABLES GLOBALES
- */
-
-#define TABLA_TRANSICION_COLUMNAS 4
-#define CANTIDAD_ESTADOS 6
-#define ESTADO_INICIAL 0
-#define ESTADO_RECHAZO 5
-#define CANTIDAD_ESTADOS_FINALES 2
-#define MAX_LONGITUD_PALABRA 255
-#define MAX_CANTIDAD_PALABRAS 30
-#define ALFABETO "0123456789.B"
-#define EXPRESION_REGULAR "[01].[0-9]? | [01]+B"
-
-Transicion *transiciones;
-
-char palabra[MAX_LONGITUD_PALABRA] = "";
-int longitud_palabra = 0;
-int estado_actual = ESTADO_INICIAL;
-
-const int estados_finales[2] = {2,4};
-const int TABLA_DE_TRANSICION[6][4] = {
-  {1,5,5,5}, // ESTADO_0 (ESTADO INICIAL)
-  {3,2,5,4}, // ESTADO_1
-  {4,5,4,5}, // ESTADO_2 (ESTADO DE ACEPTACIÓN/FINAL)
-  {3,5,5,4}, // ESTADO_3
-  {5,5,5,5}, // ESTADO_4 (ESTADO DE ACEPTACIÓN/FINAL)
-  {5,5,5,5}, // ESTADO_5 (ESTADO DE RECHAZO)
-};
 /*****************************************************************************/
 /*
  * PROTOTIPOS
@@ -111,11 +135,49 @@ void confirmar_evaluar_cadena();
 
 /*****************************************************************************/
 /*
+ * MACROS && VARIABLES GLOBALES
+ */
+
+#define TABLA_TRANSICION_COLUMNAS 4
+#define CANTIDAD_ESTADOS 6
+#define ESTADO_INICIAL 0
+#define ESTADO_RECHAZO 5
+#define CANTIDAD_ESTADOS_FINALES 2
+#define MAX_LONGITUD_PALABRA 255
+#define MAX_CANTIDAD_PALABRAS 30
+#define ALFABETO "0123456789.B"
+#define EXPRESION_REGULAR "[01].[0-9]? | [01]+B"
+
+Transicion *transiciones;
+
+char palabra[MAX_LONGITUD_PALABRA] = "";
+int longitud_palabra = 0;
+int estado_actual = ESTADO_INICIAL;
+
+const int estados_finales[2] = {2,4};
+const int TABLA_DE_TRANSICION[6][4] = {
+  {1,5,5,5}, // ESTADO_0 (ESTADO INICIAL)
+  {3,2,5,4}, // ESTADO_1
+  {4,5,4,5}, // ESTADO_2 (ESTADO DE ACEPTACIÓN/FINAL)
+  {3,5,5,4}, // ESTADO_3
+  {5,5,5,5}, // ESTADO_4 (ESTADO DE ACEPTACIÓN/FINAL)
+  {5,5,5,5}, // ESTADO_5 (ESTADO DE RECHAZO)
+};
+/*****************************************************************************/
+/*
  * MAIN
  */
 
 int main(){
   iniciar_automata();
+  /* char caracterLeido = '1'; */
+  /* printf("estaEntre 0 y 1: %d\n", estaEntreLosNumeros(0, 1, caracterLeido)); */
+
+  /* char palabra[255]; */
+  /* printf("Palabra: "); */
+  /* scanf("%s", palabra); */
+  /* reconocer_palabra(palabra); */
+
   return 0;
 }
 
@@ -135,7 +197,8 @@ boolean estaEntreLosNumeros(int minimo, int maximo, char caracter){
   if(isdigit(caracter)){
     int num = char_to_int(caracter);
 
-    return num >= minimo || num <= maximo;
+    return num >= minimo && num <= maximo;
+    /* return num >= minimo || num <= maximo; */
   }
 
   return false;
@@ -223,9 +286,13 @@ void reconocer_palabra(char* palabra){
 
   for(int i=0, numero_de_paso=2; palabra[i] != '\0'; i++, numero_de_paso++){
     caracter_leido = palabra[i];
+    // guardamos el estado anterior, a modo de reutilizarlo para una traza de transiciones
     estado_anterior = estado_actual;
+    // guardamos el estado actual, con el que determinamos si es el autómata reconoce o no la palabra
     estado_actual = transicion(palabra[i], estado_actual);
 
+    // esto será unicamente para mostrar el procedimiento que se hizo
+    // las distintas transiciones, pero no analiza cuales son, sólo para agregar detalles al análisis
     Transicion t = crearTransicion(estado_anterior, estado_actual, caracter_leido);
     agregarTransicion(i, t, transiciones);
   }
@@ -234,6 +301,7 @@ void reconocer_palabra(char* palabra){
   printf("La palabra forma parte del lenguaje: %s\n",
          es_estado_final(estado_actual) ? "SI" : "NO");
 
+  // imprime una traza de transiciones, solo a modo de referencia
   imprimir_traza_transiciones(palabra);
 
   printf("\n-------------------------------------------------------------------\n");
